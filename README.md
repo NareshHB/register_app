@@ -367,45 +367,6 @@ By following these steps, you'll be able to create a private Git repository, con
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Install AWS Cli on the above EC2
-Refer--https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
-$ sudo su
-$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-$ apt install unzip,   $ unzip awscliv2.zip
-$ sudo ./aws/install
-         OR
-$ sudo yum remove -y aws-cli
-$ pip3 install --user awscli
-$ sudo ln -s $HOME/.local/bin/aws /usr/bin/aws
-$ aws --version
-
-## Installing kubectl
-Refer--https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
-$ sudo su
-$ curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.1/2023-04-19/bin/linux/amd64/kubectl
-$ ll , $ chmod +x ./kubectl  //Gave executable permisions
-$ mv kubectl /bin   //Because all our executable files are in /bin
-$ kubectl version --output=yaml
-
-## Installing  eksctl
-Refer---https://github.com/eksctl-io/eksctl/blob/main/README.md#installation
-$ curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-$ cd /tmp
-$ ll
-$ sudo mv /tmp/eksctl /bin
-$ eksctl version
-
-## Setup Kubernetes using eksctl
-Refer--https://github.com/aws-samples/eks-workshop/issues/734
-$ eksctl create cluster --name virtualtechbox-cluster \
---region ap-south-1 \
---node-type t2.small \
---nodes 3 \
-
-$ kubectl get nodes
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 ## First Create a user in AWS IAM with any name
 ## Attach Policies to the newly created user
 ## below policies
