@@ -1,3 +1,7 @@
+<img width="938" height="637" alt="image" src="https://github.com/user-attachments/assets/7d3e4b68-467c-4bc9-8020-e692c7211d8e" />
+
+
+
 To create an Ubuntu EC2 instance in AWS, follow these steps:
 
 1. Sign in to the AWS Management Console:
