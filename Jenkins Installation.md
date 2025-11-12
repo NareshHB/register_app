@@ -37,4 +37,8 @@ Then, you can run the script using:
 
 This script will automate the installation process of OpenJDK 17 JRE Headless and Jenkins.
 
+***Install Jenkins plugins:** 
+
+Maven, SonarQube Scanner, Docker Pipeline, Kubernetes CLI.
+
 
