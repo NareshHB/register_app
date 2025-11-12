@@ -16,7 +16,7 @@ This project leverages a variety of tools and technologies to create an end-to-e
 8. **Kubernetes:** (EKS on AWS): Orchestrates the deployment, management, and scaling of the containerized applications.
 9. **Prometheus and Grafana:** Collects metrics and provides visualization dashboards for continuous monitoring and alerting of the system's health and performance.
 
-# Pipeline Workflow
+## Pipeline Workflow
 **The pipeline consists of multiple stages to ensure code quality, security, and successful deployment:**
 
 1. Git Checkout: Jenkins checks out the code from the GitHub repository.
