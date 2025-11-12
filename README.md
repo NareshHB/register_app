@@ -45,3 +45,165 @@ This project leverages a variety of tools and technologies to create an end-to-e
 
 13. Verify the Deployment: Jenkins verifies the deployment by checking the pods and services.
 
+## Git Checkout
+
+Description: Pulls the latest code from the GitHub repository.
+
+Commands:
+
+```
+stage("Checkout from SCM"){
+                steps {
+                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/NareshHB/register_app.git'
+                }
+        }
+
+```        
+
+## Build
+
+Description: Compiles the Java code using Maven.
+
+Commands:
+
+```
+ stage("Build Application"){
+            steps {
+                sh "mvn clean package"
+            }
+
+       }
+```      
+## Test
+
+Description: Runs unit tests to ensure the code is functioning as expected.
+
+```
+
+stage("Test Application"){
+           steps {
+                 sh "mvn test"
+           }
+       }
+```
+## Sonar-Analysis Quality Gate
+
+Description: Performs static code analysis using SonarQube to check for code quality and security issues.
+
+```
+
+       stage("SonarQube Analysis"){
+           steps {
+	           script {
+		        withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
+                        sh "mvn sonar:sonar"
+		        }
+	           }	
+           }
+       }
+
+ ```      
+## Quality Gate
+
+Description: Waits for the SonarQube quality gate result to ensure the code meets the required standards before proceeding.
+
+```
+       stage("Quality Gate"){
+           steps {
+               script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
+                }	
+            }
+
+        }
+        
+```
+## Publish to Nexus
+
+Description: Publishes the built artifacts to the Nexus Repository.
+
+```
+
+		stage('Publish To Nexus') {
+            steps {
+               withMaven(globalMavenSettingsConfig: 'global-settings', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
+                    sh "mvn deploy"
+                }
+            }
+        }
+```
+
+## Build & Push Docker Image
+
+Description: Builds and tags the Docker image for the application.
+
+```
+
+        stage("Build & Push Docker Image") {
+            steps {
+                script {
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image = docker.build "${IMAGE_NAME}"
+                    }
+
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')
+                    }
+                }
+            }
+
+       }
+```
+## Docker Image Scan
+
+Description: Scans the Docker image for vulnerabilities using Trivy.
+
+```
+       stage("Trivy Scan") {
+           steps {
+               script {
+	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image naresh1989/register-app-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
+               }
+           }
+       }
+```
+
+## Clean Artifacts
+
+Description: Clean Artifacts and remove images
+
+```
+       stage ('Cleanup Artifacts') {
+           steps {
+               script {
+                    sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
+                    sh "docker rmi ${IMAGE_NAME}:latest"
+               }
+          }
+       }
+```
+
+
+       stage("Trigger CD Pipeline") {
+            steps {
+                script {
+                    sh "curl -v -k --user clouduser:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'ec2-13-232-128-192.ap-south-1.compute.amazonaws.com:8080/job/gitops-register-app-cd/buildWithParameters?token=gitops-token'"
+                }
+            }
+       }
+    }
+
+    post {
+       failure {
+             emailext body: '''${SCRIPT, template="groovy-html.template"}''', 
+                      subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Failed", 
+                      mimeType: 'text/html',to: "hbnaresh@gmail.com"
+      }
+      success {
+            emailext body: '''${SCRIPT, template="groovy-html.template"}''', 
+                     subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful", 
+                     mimeType: 'text/html',to: "hbnaresh@gmail.com"
+      }      
+   }
+}
