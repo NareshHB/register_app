@@ -414,6 +414,7 @@ By following these steps, you'll be able to create a private Git repository, con
 ## First Create a user in AWS IAM with any name
 **Attach Policies to the newly created user**
 **Below policies**
+
 AmazonEC2FullAccess
 
 AmazonEKS_CNI_Policy
