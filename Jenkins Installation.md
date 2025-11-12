@@ -43,6 +43,25 @@ Maven, SonarQube Scanner, Docker Pipeline, Kubernetes CLI.
 
 ![plugins](https://github.com/user-attachments/assets/a953ae9f-4e95-4dd5-862f-e1f3448c73ec)
 
+## Configure Jenkins
+
+### Maven
+**Install Maven:** Go to **Jenkins Dashboard > Manage Jenkins > Global Tool Configuration > Maven > Add Maven** (name: maven3).
+
+### Docker
+**Install Docker:** Go to **Jenkins Dashboard > Manage Jenkins > Global Tool Configuration > Docker > Install Automatically**
+
+### JDK 17
+**Install JDK 17:** Go to **Jenkins Dashboard > Manage Jenkins > Global Tool Configuration > JDK > Add JDK** (name: jdk17).
+
+### Sonar Scanner
+**Install Sonar Scanner:** Go to **Jenkins Dashboard > Manage Jenkins > Global Tool Configuration > SonarQube Scanner > Add SonarQube Scanner** (name: sonar-scanner).
+
+**Configure SonarQube:** Go to **Manage Jenkins > Configure System > SonarQube Servers and add server URL and token.**
+
+### Nexus Repository
+**Add Nexus Config:** Go to **Jenkins Dashboard > Manage Jenkins > Configure System > Config File Provider > Add Maven Settings Config and upload settings.xml.**
+
 **Configure Jenkins with credentials for GitHub, Docker, SonarQube, and Kubernetes**
 
 ## Steps to create a private Git repository, generate a personal access token, connect to the repository, and push code to it:
