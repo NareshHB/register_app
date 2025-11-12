@@ -294,8 +294,6 @@ Your provided commands are correct for accessing the Nexus password stored in th
 
 This process allows you to access the Nexus admin password stored within the container. Make sure to keep this password secure, as it grants administrative access to your Nexus instance.
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 # SetUp SonarQube
 
 ```bash
@@ -356,8 +354,6 @@ This command will download the `sonarqube:lts-community` Docker image from Docke
 
 This will start the SonarQube server, and you should be able to access it using the provided URL. If you're running Docker on a remote server or a different port, replace `localhost` with the appropriate hostname or IP address and adjust the port accordingly.
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 ## Steps to create a private Git repository, generate a personal access token, connect to the repository, and push code to it:
 
 1. **Create a Private Git Repository**:
@@ -408,8 +404,6 @@ This will start the SonarQube server, and you should be able to access it using 
    - When prompted for credentials during the push, enter your username (usually your email) and use your personal access token as the password.
 
 By following these steps, you'll be able to create a private Git repository, connect to it using Git Bash, and push your code changes securely using a personal access token for authentication.
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## First Create a user in AWS IAM with any name
 **Attach Policies to the newly created user**
