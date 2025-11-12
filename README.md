@@ -45,7 +45,7 @@ This project leverages a variety of tools and technologies to create an end-to-e
 
 13. Verify the Deployment: Jenkins verifies the deployment by checking the pods and services.
 
-** Git Checkout
+**Git Checkout**
 
 Description: Pulls the latest code from the GitHub repository.
 
@@ -58,7 +58,7 @@ stage("Checkout from SCM"){
 
 ```        
 
-** Build
+**Build**
 
 Description: Compiles the Java code using Maven.
 
@@ -70,7 +70,7 @@ Description: Compiles the Java code using Maven.
 
        }
 ```      
-** Test
+**Test**
 
 Description: Runs unit tests to ensure the code is functioning as expected.
 
@@ -82,7 +82,7 @@ stage("Test Application"){
            }
        }
 ```
-** Sonar-Analysis Quality Gate
+**Sonar-Analysis Quality Gate**
 
 Description: Performs static code analysis using SonarQube to check for code quality and security issues.
 
@@ -99,7 +99,7 @@ Description: Performs static code analysis using SonarQube to check for code qua
        }
 
  ```      
-** Quality Gate
+**Quality Gate**
 
 Description: Waits for the SonarQube quality gate result to ensure the code meets the required standards before proceeding.
 
@@ -114,7 +114,7 @@ Description: Waits for the SonarQube quality gate result to ensure the code meet
         }
         
 ```
-** Publish to Nexus
+**Publish to Nexus**
 
 Description: Publishes the built artifacts to the Nexus Repository.
 
@@ -129,7 +129,7 @@ Description: Publishes the built artifacts to the Nexus Repository.
         }
 ```
 
-** Build & Push Docker Image
+**Build & Push Docker Image**
 
 Description: Builds and tags the Docker image for the application.
 
@@ -151,7 +151,7 @@ Description: Builds and tags the Docker image for the application.
 
        }
 ```
-** Docker Image Scan
+**Docker Image Scan**
 
 Description: Scans the Docker image for vulnerabilities using Trivy.
 
@@ -165,7 +165,7 @@ Description: Scans the Docker image for vulnerabilities using Trivy.
        }
 ```
 
-** Clean Artifacts
+**Clean Artifacts**
 
 Description: Clean Artifacts and remove images
 
@@ -180,7 +180,7 @@ Description: Clean Artifacts and remove images
        }
 ```
 
-** Trigger CD Pipeline
+**Trigger CD Pipeline**
 
 Description: Trigger CD Pipeline
 
@@ -196,7 +196,7 @@ Description: Trigger CD Pipeline
     }
 ```
 
-** Send Mail Notification
+**Send Mail Notification**
 
 Description: Trigger CD Pipeline
 
@@ -220,6 +220,6 @@ Description: Trigger CD Pipeline
 
 ## Conclusion
 
-*** In this project, we've set up a comprehensive CI/CD pipeline using Jenkins, integrating essential tools such as Maven, Docker, SonarQube, Trivy, Kubernetes, & ArgoCD Each stage of the pipeline—from code checkout to deployment—has been meticulously configured to ensure code quality, security, and seamless deployment. By leveraging SonarQube for code analysis, Trivy for security scanning, and Prometheus and Grafana for monitoring, we have embedded DevSecOps practices throughout the pipeline. This approach not only automates the build and deployment process but also ensures that our application is robust, secure, and reliable.
+***In this project, we've set up a comprehensive CI/CD pipeline using Jenkins, integrating essential tools such as Maven, Docker, SonarQube, Trivy, Kubernetes, & ArgoCD Each stage of the pipeline—from code checkout to deployment—has been meticulously configured to ensure code quality, security, and seamless deployment. By leveraging SonarQube for code analysis, Trivy for security scanning, and Prometheus and Grafana for monitoring, we have embedded DevSecOps practices throughout the pipeline. This approach not only automates the build and deployment process but also ensures that our application is robust, secure, and reliable.***
 
-By following this structured CI/CD pipeline, teams can achieve faster and more reliable software delivery, maintain high standards of code quality, and ensure continuous monitoring and improvement of their applications. This setup is a testament to the power of integrating various DevOps tools to create an efficient and secure software delivery lifecycle. ***
+***By following this structured CI/CD pipeline, teams can achieve faster and more reliable software delivery, maintain high standards of code quality, and ensure continuous monitoring and improvement of their applications. This setup is a testament to the power of integrating various DevOps tools to create an efficient and secure software delivery lifecycle.***
