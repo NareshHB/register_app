@@ -43,5 +43,5 @@ Maven, SonarQube Scanner, Docker Pipeline, Kubernetes CLI.
 
 ![plugins](https://github.com/user-attachments/assets/a953ae9f-4e95-4dd5-862f-e1f3448c73ec)
 
-
+**Configure Jenkins with credentials for GitHub, Docker, SonarQube, and Kubernetes**
 
