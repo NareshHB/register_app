@@ -60,7 +60,9 @@ Maven, SonarQube Scanner, Docker Pipeline, Kubernetes CLI.
 **Configure SonarQube:** Go to **Manage Jenkins > Configure System > SonarQube Servers and add server URL and token.**
 
 ### Nexus Repository
-**Add Nexus Config:** Go to **Jenkins Dashboard > Manage Jenkins > Configure System > Config File Provider > Add Maven Settings Config and upload settings.xml.**
+**Add Nexus Config:** Go to **Jenkins Dashboard > Manage Jenkins > Configure System > Config File Provider > Add Maven Settings Config** and upload settings.xml.
+
+![plugins](https://github.com/user-attachments/assets/65e065ca-f2f2-4742-a793-9589c119eeb3)
 
 **Configure Jenkins with credentials for GitHub, Docker, SonarQube, and Kubernetes**
 
