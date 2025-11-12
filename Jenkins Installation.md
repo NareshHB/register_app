@@ -41,4 +41,7 @@ This script will automate the installation process of OpenJDK 17 JRE Headless an
 
 Maven, SonarQube Scanner, Docker Pipeline, Kubernetes CLI.
 
+![plugins](https://github.com/user-attachments/assets/a953ae9f-4e95-4dd5-862f-e1f3448c73ec)
+
+
 
