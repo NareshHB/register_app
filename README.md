@@ -21,34 +21,6 @@ This project leverages a variety of tools and technologies to create an end-to-e
 
 1. Git Checkout: Jenkins checks out the code from the GitHub repository.
 
-2. Compile: Maven compiles the code.
-
-3. Test: Maven runs unit tests.
-
-4. File System Scan: Trivy scans the file system for vulnerabilities.
-
-5. SonarCloud Analysis: SonarQube performs code quality analysis.
-
-6. Quality Gate: Jenkins waits for SonarQube’s quality gate results.
-
-7. Build: Maven packages the application.
-
-8. Publish to Nexus: Jenkins publishes the build artifacts to the Nexus Repository.
-
-9. Build & Tag Docker Image: Docker builds and tags the application image.
-
-10. Docker Image Scan: Trivy scans the Docker image for vulnerabilities.
-
-11. Push Docker Image: Jenkins pushes the Docker image to the registry.
-
-12. Deploy to Kubernetes: Jenkins deploys the application to the Kubernetes cluster.
-
-13. Verify the Deployment: Jenkins verifies the deployment by checking the pods and services.
-
-**Git Checkout**
-
-Description: Pulls the latest code from the GitHub repository.
-
 ```
 stage("Checkout from SCM"){
                 steps {
@@ -58,21 +30,9 @@ stage("Checkout from SCM"){
 
 ```        
 
-**Build**
+2. Compile: Maven compiles the code.
 
-Description: Compiles the Java code using Maven.
-
-```
- stage("Build Application"){
-            steps {
-                sh "mvn clean package"
-            }
-
-       }
-```      
-**Test**
-
-Description: Runs unit tests to ensure the code is functioning as expected.
+3. Test: Maven runs unit tests.
 
 ```
 
@@ -82,9 +42,19 @@ stage("Test Application"){
            }
        }
 ```
-**Sonar-Analysis Quality Gate**
 
-Description: Performs static code analysis using SonarQube to check for code quality and security issues.
+4. File System Scan: Trivy scans the file system for vulnerabilities.
+
+```
+stage('File System Scan') {
+            steps {
+                sh "trivy fs --format table -o trivy-fs-report.html ."
+            }
+        }
+
+```
+
+5. SonarCloud Analysis: SonarQube performs code quality analysis.
 
 ```
 
@@ -98,10 +68,9 @@ Description: Performs static code analysis using SonarQube to check for code qua
            }
        }
 
- ```      
-**Quality Gate**
+ ```    
 
-Description: Waits for the SonarQube quality gate result to ensure the code meets the required standards before proceeding.
+6. Quality Gate: Jenkins waits for SonarQube’s quality gate results.
 
 ```
        stage("Quality Gate"){
@@ -114,9 +83,19 @@ Description: Waits for the SonarQube quality gate result to ensure the code meet
         }
         
 ```
-**Publish to Nexus**
 
-Description: Publishes the built artifacts to the Nexus Repository.
+7. Build: Maven packages the application.
+
+```
+ stage("Build Application"){
+            steps {
+                sh "mvn clean package"
+            }
+
+       }
+```      
+
+8. Publish to Nexus: Jenkins publishes the build artifacts to the Nexus Repository.
 
 ```
 
@@ -129,9 +108,7 @@ Description: Publishes the built artifacts to the Nexus Repository.
         }
 ```
 
-**Build & Push Docker Image**
-
-Description: Builds and tags the Docker image for the application.
+9. Build & Tag Docker Image: Docker builds and tags the application image.
 
 ```
 
@@ -141,19 +118,14 @@ Description: Builds and tags the Docker image for the application.
                     docker.withRegistry('',DOCKER_PASS) {
                         docker_image = docker.build "${IMAGE_NAME}"
                     }
-
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image.push("${IMAGE_TAG}")
-                        docker_image.push('latest')
-                    }
+                    
                 }
             }
 
        }
 ```
-**Docker Image Scan**
 
-Description: Scans the Docker image for vulnerabilities using Trivy.
+10. Docker Image Scan: Trivy scans the Docker image for vulnerabilities.
 
 ```
        stage("Trivy Scan") {
@@ -165,9 +137,16 @@ Description: Scans the Docker image for vulnerabilities using Trivy.
        }
 ```
 
-**Clean Artifacts**
+11. Push Docker Image: Jenkins pushes the Docker image to the registry.
 
-Description: Clean Artifacts and remove images
+```
+docker.withRegistry('',DOCKER_PASS) {
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')
+                    }
+```
+
+12. Clean Artifacts and remove images
 
 ```
        stage ('Cleanup Artifacts') {
@@ -180,9 +159,8 @@ Description: Clean Artifacts and remove images
        }
 ```
 
-**Trigger CD Pipeline**
 
-Description: Trigger CD Pipeline
+13. Deploy to Kubernetes: Trigger CD Pipeline.
 
 ```
 
@@ -196,9 +174,20 @@ Description: Trigger CD Pipeline
     }
 ```
 
-**Send Mail Notification**
+14. Verify the Deployment: Jenkins verifies the deployment by checking the pods and services.
 
-Description: Trigger CD Pipeline
+```
+stage('Verify the Deployment') {
+            steps {
+                withKubeConfig([credentialsId: 'gitops-token', serverUrl: 'https://11DF796EEE3966468F9CC68CC102D1BA.yl4.ap-south-1.eks.amazonaws.com']) {
+                    sh "kubectl get pods -n webapps"
+                    sh "kubectl get svc -n webapps"
+                }
+            }
+        }
+```
+
+15. Send Mail Notification.
 
 ```
     post {
