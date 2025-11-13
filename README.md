@@ -180,8 +180,8 @@ docker.withRegistry('',DOCKER_PASS) {
 stage('Verify the Deployment') {
             steps {
                 withKubeConfig([credentialsId: 'gitops-token', serverUrl: 'https://11DF796EEE3966468F9CC68CC102D1BA.yl4.ap-south-1.eks.amazonaws.com']) {
-                    sh "kubectl get pods -n webapps"
-                    sh "kubectl get svc -n webapps"
+                    sh "kubectl get pods -n argocd"
+                    sh "kubectl get svc -n argocd"
                 }
             }
         }
