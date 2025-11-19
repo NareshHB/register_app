@@ -323,7 +323,7 @@ Maven, SonarQube Scanner, Docker Pipeline, Kubernetes CLI.
 
 By following these steps, you'll be able to create a private Git repository, connect to it using Git Bash, and push your code changes securely using a personal access token for authentication.
 
-# SetUp SonarQube
+## SetUp SonarQube
 
 ```bash
 #!/bin/bash
